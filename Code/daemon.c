@@ -29,8 +29,7 @@
 #include <fcntl.h>
 
 
-int main()
-{
+int main() {
     time_t now;
     struct tm backup_time;
     time(&now);  /* get current time; same as: now = time(NULL)  */
@@ -49,110 +48,110 @@ int main()
         // this process performs printf and finishes
         //sleep(10);  // uncomment to wait 10 seconds before process ends
         exit(EXIT_SUCCESS);
-    } else if (pid == 0) {
-       // Step 1: Create the orphan process
+    }
+    
+    else if (pid == 0) {
+        // Step 1: Create the orphan process
        
-       // Step 2: Elevate the orphan process to session leader, to loose controlling TTY
-       // This command runs the process in a new session
-       if (setsid() < 0) { exit(EXIT_FAILURE); }
+        // Step 2: Elevate the orphan process to session leader, to loose controlling TTY
+        // This command runs the process in a new session
+        if (setsid() < 0) { exit(EXIT_FAILURE); }
 
-       // We could fork here again , just to guarantee that the process is not a session leader
-       int pid = fork();
-       if (pid > 0) {
-          exit(EXIT_SUCCESS);
-       } else {
-       
-          // Step 3: call umask() to set the file mode creation mask to 0
-          umask(0);
+        // We could fork here again , just to guarantee that the process is not a session leader
+        int pid = fork();
+        if (pid > 0) {
+            exit(EXIT_SUCCESS);
+        } 
+        
+        else {
 
-          // Step 4: Change the current working dir to root.
-          // This will eliminate any issues of running on a mounted drive, 
-          // that potentially could be removed etc..
-          if (chdir("/") < 0 ) { exit(EXIT_FAILURE); }
+            // Call umask() to set the file mode creation mask to 0
+            umask(0);
 
-          // Step 5: Close all open file descriptors
-          /* Close all open file descriptors */
-          int x;
-          for (x = sysconf(_SC_OPEN_MAX); x>=0; x--)
-          {
-             close (x);
-          } 
+            // Change the current working dir to root.
+            if (chdir("/") < 0 ) { exit(EXIT_FAILURE); }
 
-          // Signal Handler goes here
+            // Close all open file descriptors
+            int x;
+            for (x = sysconf(_SC_OPEN_MAX); x>=0; x--)
+            {
+                close (x);
+            } 
 
-          // Log file goes here
-          // TODO create your logging functionality here to a file
+            // Signal Handler goes here
 
-
-          // Orphan Logic goes here!! 
-          // Keep process running with infinite loop
-          // When the parent finishes after 10 seconds, 
-          // the getppid() will return 1 as the parent (init process)
+            // Orphan Logic goes here!! 
+            // Keep process running with infinite loop
+            // When the parent finishes after 10 seconds, 
+            // the getppid() will return 1 as the parent (init process)
           
-	  struct tm check_uploads_time;
-	  time(&now);  /* get current time; same as: now = time(NULL)  */
-	  check_uploads_time = *localtime(&now);
-	  check_uploads_time.tm_hour = 23; 
-	  check_uploads_time.tm_min = 30; 
-	  check_uploads_time.tm_sec = 0;
+            struct tm check_uploads_time;
+            time(&now);  /* get current time; same as: now = time(NULL)  */
+            check_uploads_time = *localtime(&now);
+            check_uploads_time.tm_hour = 18; 
+            check_uploads_time.tm_min = 11;
+            check_uploads_time.tm_sec = 0;
 
-    close(STDIN_FILENO);
-    close(STDOUT_FILENO);
-    close(STDERR_FILENO);
-	
-  	  while(1) {
-	  	sleep(1);
+            close(STDIN_FILENO);
+            close(STDOUT_FILENO);
+            close(STDERR_FILENO);
+        
+        while(1) {
 
-		if(signal(SIGINT, sig_handler) == SIG_ERR) {
-			syslog(LOG_ERR, "ERROR: daemon.c : SIG_ERR RECEIVED");
-		} 
+            sleep(1);
+
+            if(signal(SIGINT, sig_handler) == SIG_ERR) {
+                syslog(LOG_ERR, "ERROR: daemon.c : SIG_ERR RECEIVED");
+            } 
 
 		
-		//countdown to 23:30
-	  	time(&now);
-		double seconds_to_files_check = difftime(now,mktime(&check_uploads_time));
-		if(seconds_to_files_check == 0) {
-			check_file_uploads();
+            //countdown to 23:30
+            time(&now);
+            double seconds_to_files_check = difftime(now,mktime(&check_uploads_time));
+            if(seconds_to_files_check == 0) {
 
-            char date[128];
-            FILE *file;
-            file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
-            strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
-            char *msg = "***** CHECKING REPORTS *****";
-            fprintf(file, "\n%s: %s\n", date, msg);
-            fclose(file);
+                char date[128];
+                FILE *file;
+                file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+                strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
+                char *msg = "***** CHECKING REPORTS *****";
+                fprintf(file, "\n%s: %s\n", date, msg);
+                fclose(file);
 
-			//change to tommorow's day
-			update_timer(&check_uploads_time);
-		}
+                check_file_uploads();
+
+                //change to tommorow's day
+                update_timer(&check_uploads_time);
+            }
 				
 
-		//countdown to 1:00
-		time(&now);
-		double seconds_to_transfer = difftime(now, mktime(&backup_time));
-		//syslog(LOG_INFO, "%.f seconds until backup", seconds_to_files_check);
-		if(seconds_to_transfer == 0) {
+            //countdown to 1:00
+            time(&now);
+            double seconds_to_transfer = difftime(now, mktime(&backup_time));
 
-            char date[128];
-            FILE *file;
-            file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
-            strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
-            char *msg = "***** PERFORMING BACKUP *****";
-            fprintf(file, "\n%s: %s\n", date, msg);
-            fclose(file);
+            if(seconds_to_transfer == 0) {
 
-			lock_directories();
-			collect_reports();	  
-			backup_dashboard();
-			sleep(30);
-			unlock_directories();
-			generate_reports();
-			//after actions are finished, start counting to next day
-			update_timer(&backup_time);
-		}	
-	  }
+                char date[128];
+                FILE *file;
+                file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+                strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
+                char *msg = "***** PERFORMING BACKUP *****";
+                fprintf(file, "\n%s: %s\n", date, msg);
+                fclose(file);
+
+                lock_directories();
+                collect_reports();	  
+                backup_dashboard();
+                sleep(30);
+                unlock_directories();
+                generate_reports();
+                //after actions are finished, start counting to next day
+                update_timer(&backup_time);
+		    }	
+	    }
 	}	
 
        return 0;
+
     }
 }
