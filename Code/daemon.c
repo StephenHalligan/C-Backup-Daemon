@@ -25,6 +25,9 @@
 #include <time.h>
 #include "daemon_task.h"
 #include <signal.h>
+#include <string.h>
+#include <fcntl.h>
+
 
 int main()
 {
@@ -32,9 +35,10 @@ int main()
     struct tm backup_time;
     time(&now);  /* get current time; same as: now = time(NULL)  */
     backup_time = *localtime(&now);
-    backup_time.tm_hour = 1; 
-    backup_time.tm_min = 0; 
+    backup_time.tm_hour = 9; 
+    backup_time.tm_min = 57; 
     backup_time.tm_sec = 0;
+
 
     // Implementation for Singleton Pattern if desired (Only one instance running)
 
@@ -92,6 +96,10 @@ int main()
 	  check_uploads_time.tm_hour = 23; 
 	  check_uploads_time.tm_min = 30; 
 	  check_uploads_time.tm_sec = 0;
+
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
 	
   	  while(1) {
 	  	sleep(1);
@@ -104,9 +112,16 @@ int main()
 		//countdown to 23:30
 	  	time(&now);
 		double seconds_to_files_check = difftime(now,mktime(&check_uploads_time));
-		//syslog(LOG_INFO, "%.f seconds until check for xml uploads", seconds_to_files_check);
 		if(seconds_to_files_check == 0) {
 			check_file_uploads();
+
+            char date[128];
+            FILE *file;
+            file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+            strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
+            char *msg = "***** CHECKING REPORTS *****";
+            fprintf(file, "\n%s: %s\n", date, msg);
+            fclose(file);
 
 			//change to tommorow's day
 			update_timer(&check_uploads_time);
@@ -118,6 +133,15 @@ int main()
 		double seconds_to_transfer = difftime(now, mktime(&backup_time));
 		//syslog(LOG_INFO, "%.f seconds until backup", seconds_to_files_check);
 		if(seconds_to_transfer == 0) {
+
+            char date[128];
+            FILE *file;
+            file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+            strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
+            char *msg = "***** PERFORMING BACKUP *****";
+            fprintf(file, "\n%s: %s\n", date, msg);
+            fclose(file);
+
 			lock_directories();
 			collect_reports();	  
 			backup_dashboard();
@@ -129,7 +153,7 @@ int main()
 		}	
 	  }
 	}	
-	closelog();
+
        return 0;
     }
 }

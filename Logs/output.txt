@@ -1,0 +1,8 @@
+
+Mon Mar 06 09:51:00 2023: ***** PERFORMING BACKUP *****
+Locking directories
+Unlocking directories
+
+Mon Mar 06 09:57:00 2023: ***** PERFORMING BACKUP *****
+Locking directories
+Unlocking directories
