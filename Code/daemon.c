@@ -35,10 +35,9 @@ int main()
     struct tm backup_time;
     time(&now);  /* get current time; same as: now = time(NULL)  */
     backup_time = *localtime(&now);
-    backup_time.tm_hour = 9; 
-    backup_time.tm_min = 57; 
+    backup_time.tm_hour = 10; 
+    backup_time.tm_min = 13; 
     backup_time.tm_sec = 0;
-
 
     // Implementation for Singleton Pattern if desired (Only one instance running)
 

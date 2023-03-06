@@ -15,10 +15,9 @@ void unlock_directories() {
     fprintf(file, "%s\n", msg);
     fclose(file);
 
-    int result = chmod("/workspaces/SysSoftwareAssignment1/-Upload", S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
+    int result = chmod("/workspaces/SysSoftwareAssignment1/-Upload", S_IRWXU | S_IRWXG | S_IRWXO);
     if (result != 0) {
         perror("chmod");
-
     }
 }
         
