@@ -19,8 +19,8 @@ void check_file_uploads(void) {
 
    char *msg;
 
-   char folder_path[] = "/workspaces/SysSoftwareAssignment1/-Upload/Department 1";
-   DIR *directory = opendir(folder_path);
+   char folder_path1[] = "/workspaces/SysSoftwareAssignment1/-Upload/Department 1";
+   DIR *directory = opendir(folder_path1);
    struct dirent *entry;
 
    char folder_path2[] = "/workspaces/SysSoftwareAssignment1/-Upload/Department 2";
@@ -35,7 +35,6 @@ void check_file_uploads(void) {
    directory = opendir(folder_path4);
    struct dirent *entry4;
 
-
    //Department 1 upload check   
 
    while ((entry = readdir(directory)) != NULL) {
@@ -47,11 +46,11 @@ void check_file_uploads(void) {
    closedir(directory);
 
    if (dept1) {
-      msg = "Check file uploads > DEPARTMENT 1 XML FILE UPLOADED";
+      msg = "DEPARTMENT 1 XML FILE UPLOADED";
       fprintf(file, "%s\n", msg);
     }
     else {
-      msg = "***** ALERT *****\nCheck file uploads > DEPARTMENT 1 XML FILE NOT UPLOADED\n";
+      msg = "***** ALERT *****\nDEPARTMENT 1 XML FILE NOT UPLOADED\n";
       fprintf(file, "\n%s", msg);
    }
 
@@ -66,7 +65,7 @@ void check_file_uploads(void) {
    }
    closedir(directory);
    if (dept2) {
-      msg = "Check file uploads > DEPARTMENT 2 XML FILE UPLOADED";
+      msg = "DEPARTMENT 2 XML FILE UPLOADED";
       fprintf(file, "%s\n", msg);
     }
     else {

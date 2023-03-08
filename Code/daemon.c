@@ -31,6 +31,8 @@
 
 int main() {
 
+
+    check_file_uploads();
     FILE *file;
     file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "w");
     char *msg = "";
@@ -41,8 +43,8 @@ int main() {
     struct tm backup_time;
     time(&now);  /* get current time; same as: now = time(NULL)  */
     backup_time = *localtime(&now);
-    backup_time.tm_hour = 8; 
-    backup_time.tm_min = 50; 
+    backup_time.tm_hour = 18; 
+    backup_time.tm_min = 15; 
     backup_time.tm_sec = 0;
 
     // Implementation for Singleton Pattern if desired (Only one instance running)
@@ -95,8 +97,8 @@ int main() {
             struct tm check_uploads_time;
             time(&now);  /* get current time; same as: now = time(NULL)  */
             check_uploads_time = *localtime(&now);
-            check_uploads_time.tm_hour = 8; 
-            check_uploads_time.tm_min = 49;
+            check_uploads_time.tm_hour = 18; 
+            check_uploads_time.tm_min = 24;
             check_uploads_time.tm_sec = 0;
 
             close(STDIN_FILENO);
