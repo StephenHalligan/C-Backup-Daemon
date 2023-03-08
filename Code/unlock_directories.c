@@ -11,7 +11,7 @@ void unlock_directories() {
 
     FILE *file;
     file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
-    char *msg = "Unlocking directories";
+    char *msg = "Unlock directories > Directories successfully unlocked";
     fprintf(file, "%s\n", msg);
     fclose(file);
 
@@ -19,5 +19,11 @@ void unlock_directories() {
     if (result != 0) {
         perror("chmod");
     }
+
+    int result2 = chmod("/workspaces/SysSoftwareAssignment1/-Reporting", S_IRWXU | S_IRWXG | S_IRWXO);
+    if (result2 != 0) {
+        perror("chmod");
+    }
+
 }
         

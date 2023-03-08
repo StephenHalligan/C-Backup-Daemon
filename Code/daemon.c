@@ -30,12 +30,19 @@
 
 
 int main() {
+
+    FILE *file;
+    file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "w");
+    char *msg = "";
+    fprintf(file, "%s", msg);
+    fclose(file);
+
     time_t now;
     struct tm backup_time;
     time(&now);  /* get current time; same as: now = time(NULL)  */
     backup_time = *localtime(&now);
-    backup_time.tm_hour = 10; 
-    backup_time.tm_min = 13; 
+    backup_time.tm_hour = 8; 
+    backup_time.tm_min = 50; 
     backup_time.tm_sec = 0;
 
     // Implementation for Singleton Pattern if desired (Only one instance running)
@@ -88,8 +95,8 @@ int main() {
             struct tm check_uploads_time;
             time(&now);  /* get current time; same as: now = time(NULL)  */
             check_uploads_time = *localtime(&now);
-            check_uploads_time.tm_hour = 18; 
-            check_uploads_time.tm_min = 11;
+            check_uploads_time.tm_hour = 8; 
+            check_uploads_time.tm_min = 49;
             check_uploads_time.tm_sec = 0;
 
             close(STDIN_FILENO);
@@ -114,7 +121,7 @@ int main() {
                 FILE *file;
                 file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
                 strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
-                char *msg = "***** CHECKING REPORTS *****";
+                char *msg = "***** CHECKING REPORTS *****\n";
                 fprintf(file, "\n%s: %s\n", date, msg);
                 fclose(file);
 
@@ -145,6 +152,7 @@ int main() {
                 sleep(30);
                 unlock_directories();
                 generate_reports();
+                
                 //after actions are finished, start counting to next day
                 update_timer(&backup_time);
 		    }	
