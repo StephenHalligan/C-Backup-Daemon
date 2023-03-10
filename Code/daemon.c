@@ -32,7 +32,6 @@
 int main() {
 
 
-    check_file_uploads();
     FILE *file;
     file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "w");
     char *msg = "";
@@ -43,9 +42,9 @@ int main() {
     struct tm backup_time;
     time(&now);  /* get current time; same as: now = time(NULL)  */
     backup_time = *localtime(&now);
-    backup_time.tm_hour = 18; 
-    backup_time.tm_min = 15; 
-    backup_time.tm_sec = 0;
+    backup_time.tm_hour = 20; 
+    backup_time.tm_min = 44; 
+    backup_time.tm_sec = 30;
 
     // Implementation for Singleton Pattern if desired (Only one instance running)
 
@@ -97,15 +96,95 @@ int main() {
             struct tm check_uploads_time;
             time(&now);  /* get current time; same as: now = time(NULL)  */
             check_uploads_time = *localtime(&now);
-            check_uploads_time.tm_hour = 18; 
-            check_uploads_time.tm_min = 24;
+            check_uploads_time.tm_hour = 20; 
+            check_uploads_time.tm_min = 44;
             check_uploads_time.tm_sec = 0;
 
             close(STDIN_FILENO);
             close(STDOUT_FILENO);
             close(STDERR_FILENO);
-        
+
+            const char *filename1;
+            const char *filename2;
+            const char *filename3;
+            const char *filename4;
+
+            filename1 = "workspaces/SysSoftwareAssignment1/-Upload/Distribution/report.xml";
+            filename2 = "workspaces/SysSoftwareAssignment1/-Upload/Manufacturing/report.xml";
+            filename3 = "workspaces/SysSoftwareAssignment1/-Upload/Sales/report.xml";
+            filename4 = "workspaces/SysSoftwareAssignment1/-Upload/Warehouse/report.xml";
+
+            struct stat st1;
+            struct stat st2;
+            struct stat st3;
+            struct stat st4;
+
+            FILE *file1;
+            FILE *file2;
+            FILE *file3;
+            FILE *file4;
+
+            time_t last_modification_time1 = st1.st_mtime;
+            time_t last_modification_time2 = st2.st_mtime;
+            time_t last_modification_time3 = st3.st_mtime;
+            time_t last_modification_time4 = st4.st_mtime;
+
         while(1) {
+
+            char date[128];
+
+
+            //Dept 1
+            file1 = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+            if (stat(filename1, &st1) == -1) {
+                perror("stat");
+                exit(1);
+            }
+            if (st1.st_mtime != last_modification_time1) {
+                strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
+                fprintf(file1, "File integrity > The 'Distribution' report file was modified at %s\n", date);
+                fclose(file1);
+                last_modification_time1 = st1.st_mtime;
+            }
+
+            //Dept 2
+            file2 = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+            if (stat(filename2, &st2) == -1) {
+                perror("stat");
+                exit(1);
+            }
+            if (st2.st_mtime != last_modification_time2) {
+                strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
+                fprintf(file2, "File integrity > The 'Manufacturing' report file was modified at %s\n", date);
+                fclose(file2);
+                last_modification_time2 = st2.st_mtime;
+            }
+
+            //Dept 3
+            file3 = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+            if (stat(filename3, &st3) == -1) {
+                perror("stat");
+                exit(1);
+            }
+            if (st3.st_mtime != last_modification_time3) {
+                strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
+                fprintf(file3, "File integrity > The 'Sales' report file was modified at %s\n", date);
+                fclose(file3);
+                last_modification_time3 = st3.st_mtime;
+            }
+
+            //Dept 4
+            file4 = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+            if (stat(filename4, &st4) == -1) {
+                perror("stat");
+                exit(1);
+            }
+            if (st4.st_mtime != last_modification_time4) {
+                strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
+                fprintf(file4, "File integrity > The 'Warehouse' report file was modified at %s\n", date);
+                fclose(file4);
+                last_modification_time4 = st4.st_mtime;
+            }	
 
             sleep(1);
 
@@ -119,7 +198,6 @@ int main() {
             double seconds_to_files_check = difftime(now,mktime(&check_uploads_time));
             if(seconds_to_files_check == 0) {
 
-                char date[128];
                 FILE *file;
                 file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
                 strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
@@ -132,7 +210,6 @@ int main() {
                 //change to tommorow's day
                 update_timer(&check_uploads_time);
             }
-				
 
             //countdown to 1:00
             time(&now);
@@ -144,12 +221,12 @@ int main() {
                 FILE *file;
                 file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
                 strftime(date, sizeof(date), "%a %b %d %T %Y", localtime(&now));
-                char *msg = "***** PERFORMING BACKUP *****";
+                char *msg = "***** PERFORMING BACKUP *****\n";
                 fprintf(file, "\n%s: %s\n", date, msg);
                 fclose(file);
 
                 lock_directories();
-                collect_reports();	  
+                collect_reports();  
                 backup_dashboard();
                 sleep(30);
                 unlock_directories();
