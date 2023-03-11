@@ -29,6 +29,7 @@
 #include <fcntl.h>
 
 void backup(int sig) {
+
     printf("Manual backup request received.\n");
     FILE *file;
     file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
@@ -46,7 +47,6 @@ void backup(int sig) {
 
 int main() {
 
-
     FILE *file;
     file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "w");
     char *msg = "";
@@ -57,9 +57,9 @@ int main() {
     struct tm backup_time;
     time(&now);  /* get current time; same as: now = time(NULL)  */
     backup_time = *localtime(&now);
-    backup_time.tm_hour = 20; 
-    backup_time.tm_min = 44; 
-    backup_time.tm_sec = 30;
+    backup_time.tm_hour = 17; 
+    backup_time.tm_min = 56; 
+    backup_time.tm_sec = 15;
 
     // Implementation for Singleton Pattern if desired (Only one instance running)
 

@@ -35,10 +35,9 @@ void backup_dashboard(void) {
 
     if (pid == 0)
     {
-
         sprintf(date, "%04d-%02d-%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
-        sprintf(path, "/workspaces/SysSoftwareAssignment1/-Backup/%s", date);
-        mkdir(path, 0777);
+        sprintf(path, "/workspaces/SysSoftwareAssignment1/-Backup/%s/", date);
+        mkdir(path, 0700);
 
 
         sprintf(path, "/workspaces/SysSoftwareAssignment1/-Backup/%s/Distribution", date);
