@@ -1,4 +1,12 @@
-File integrity > The 'Distribution' report file was modified at Fri Mar 10 02:30:23 2023
-File integrity > The 'Manufacturing' report file was modified at Fri Mar 10 02:30:23 2023
-File integrity > The 'Sales' report file was modified at Fri Mar 10 02:30:23 2023
-File integrity > The 'Warehouse' report file was modified at Fri Mar 10 02:30:23 2023
+File integrity > The 'Distribution' report file was modified at Sat Mar 11 17:33:44 2023
+File integrity > The 'Manufacturing' report file was modified at Sat Mar 11 17:33:44 2023
+File integrity > The 'Sales' report file was modified at Sat Mar 11 17:33:44 2023
+File integrity > The 'Warehouse' report file was modified at Sat Mar 11 17:33:44 2023
+
+***** PERFORMING MANUAL BACKUP *****
+
+Lock directories > Directories successfully locked
+Collect reports > Reports collected and moved to Reporting directory
+Backup dashboard > Dashboard backup starting
+Backup dashboard > Dashboard backup complete
+Unlock directories >  Directories successfully unlocked

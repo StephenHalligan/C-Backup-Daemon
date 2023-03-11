@@ -10,12 +10,12 @@
  * 
  * Kill -2 signal will enable the daemon to transfer / backup at any given time
  *
- * */
+ */
 
 
 // Orphan Example
 // The child process is adopted by init process, when parent process dies.
-#include<stdio.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <signal.h>
@@ -28,6 +28,21 @@
 #include <string.h>
 #include <fcntl.h>
 
+void backup(int sig) {
+    printf("Manual backup request received.\n");
+    FILE *file;
+    file = fopen("/workspaces/SysSoftwareAssignment1/Logs/output.txt", "ab");
+    char *msg = "\n***** PERFORMING MANUAL BACKUP *****\n";
+    fprintf(file, "%s\n", msg);
+    fclose(file);
+
+    lock_directories();
+    collect_reports();  
+    backup_dashboard();
+    sleep(30);
+    unlock_directories();
+    generate_reports();
+}
 
 int main() {
 
@@ -192,6 +207,7 @@ int main() {
                 syslog(LOG_ERR, "ERROR: daemon.c : SIG_ERR RECEIVED");
             } 
 
+            signal(SIGINT, backup);
 		
             //countdown to 23:30
             time(&now);

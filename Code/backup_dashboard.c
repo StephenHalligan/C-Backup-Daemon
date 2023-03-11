@@ -85,11 +85,6 @@ void backup_dashboard(void) {
         fclose(src_file);
         fclose(dst_file);
 
-        int result = chmod("/workspaces/SysSoftwareAssignment1/-Backup", S_IROTH);
-        if (result != 0) {
-            perror("chmod");
-        }
-
         exit(0);
     }
     else if (pid > 0)
