@@ -33,3 +33,5 @@ XML files copied successfully!
 Collect reports > Reports collected and moved to Reporting directory
 Backup dashboard > Dashboard backup starting
 XML file copied successfully!
+Backup dashboard > Dashboard backup complete
+Unlock directories >  Directories successfully unlocked

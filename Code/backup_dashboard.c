@@ -86,14 +86,11 @@ void backup_dashboard(void) {
 
         exit(0);
     }
-    else if (pid > 0)
-    {
+    else if (pid > 0) {
         // Parent process
         wait(NULL);
-        printf("XML file copied successfully!\n");
     }
-    else
-    {
+    else {
         // Error creating child process
         printf("Error creating child process!\n");
         exit(1);
