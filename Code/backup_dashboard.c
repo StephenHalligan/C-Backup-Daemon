@@ -35,10 +35,9 @@ void backup_dashboard(void) {
 
     if (pid == 0)
     {
-
         sprintf(date, "%04d-%02d-%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
-        sprintf(path, "/workspaces/SysSoftwareAssignment1/-Backup/%s", date);
-        mkdir(path, 0777);
+        sprintf(path, "/workspaces/SysSoftwareAssignment1/-Backup/%s/", date);
+        mkdir(path, 0700);
 
 
         sprintf(path, "/workspaces/SysSoftwareAssignment1/-Backup/%s/Distribution", date);
@@ -85,21 +84,13 @@ void backup_dashboard(void) {
         fclose(src_file);
         fclose(dst_file);
 
-        int result = chmod("/workspaces/SysSoftwareAssignment1/-Backup", S_IROTH);
-        if (result != 0) {
-            perror("chmod");
-        }
-
         exit(0);
     }
-    else if (pid > 0)
-    {
+    else if (pid > 0) {
         // Parent process
         wait(NULL);
-        printf("XML file copied successfully!\n");
     }
-    else
-    {
+    else {
         // Error creating child process
         printf("Error creating child process!\n");
         exit(1);

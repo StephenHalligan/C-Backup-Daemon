@@ -14,12 +14,12 @@ void unlock_directories() {
     char *msg = "Backup dashboard > Dashboard backup complete";
     fprintf(file, "%s\n", msg);
 
-    int result = chmod("/workspaces/SysSoftwareAssignment1/-Upload", S_IRWXU | S_IRWXG | S_IRWXO);
+    int result = chmod("/workspaces/SysSoftwareAssignment1/-Upload", S_IRUSR | S_IWUSR | S_IXUSR);
     if (result != 0) {
         perror("chmod");
     }
 
-    int result2 = chmod("/workspaces/SysSoftwareAssignment1/-Reporting", S_IRWXU | S_IRWXG | S_IRWXO);
+    int result2 = chmod("/workspaces/SysSoftwareAssignment1/-Reporting", S_IRUSR | S_IWUSR | S_IXUSR);
     if (result2 != 0) {
         perror("chmod");
     }
