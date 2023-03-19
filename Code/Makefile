@@ -10,9 +10,6 @@ all: $(EXEC)
 $(EXEC): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
 clear:
 	rm -f $(OBJS) $(EXEC)
 

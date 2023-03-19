@@ -1,0 +1,1 @@
+Reports are moved here daily, at 1am from the upload directory.

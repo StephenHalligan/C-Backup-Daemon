@@ -1,37 +1,45 @@
-File integrity > The 'Distribution' report file was modified at Sat Mar 11 18:08:50 2023
-File integrity > The 'Manufacturing' report file was modified at Sat Mar 11 18:08:50 2023
-File integrity > The 'Sales' report file was modified at Sat Mar 11 18:08:50 2023
-File integrity > The 'Warehouse' report file was modified at Sat Mar 11 18:08:50 2023
-Manual backup request received.
+File integrity > The 'Distribution' report file was modified at Sun Mar 19 11:25:48 2023
+File integrity > The 'Manufacturing' report file was modified at Sun Mar 19 11:25:48 2023
+File integrity > The 'Sales' report file was modified at Sun Mar 19 11:25:48 2023
+File integrity > The 'Warehouse' report file was modified at Sun Mar 19 11:25:48 2023
+
+Sun Mar 19 11:26:00 2023: ***** CHECKING REPORTS *****
+
+Check file uploads > DISTRIBUTION XML FILE UPLOADED
+Check file uploads > MANUFACTORING XML FILE UPLOADED
+Check file uploads > SALES XML FILE UPLOADED
+Check file uploads > WAREHOUSE XML FILE UPLOADED
+
+Sun Mar 19 11:27:00 2023: ***** PERFORMING BACKUP *****
+
+Lock directories > Directories successfully locked
+
+CURRENT DAY IS 19; CHANGING TIMER TO TOMMOROW'S DAY
+TIMER UPDATED, DUE NEXT DAY, 20Collect reports > Reports collected and moved to Reporting directory
+Backup dashboard > Dashboard backup starting
+
+CURRENT DAY IS 19; CHANGING TIMER TO TOMMOROW'S DAY
+TIMER UPDATED, DUE NEXT DAY, 20XML files copied successfully!
+Backup dashboard > Dashboard backup complete
+Unlock directories >  Directories successfully unlocked
+File integrity > The 'Warehouse' report file was modified at Sun Mar 19 11:29:40 2023
+File integrity > The 'Warehouse' report file was modified at Sun Mar 19 11:29:43 2023
 
 ***** PERFORMING MANUAL BACKUP *****
 
 Lock directories > Directories successfully locked
-XML files copied successfully!
+
+CURRENT DAY IS 19; CHANGING TIMER TO TOMMOROW'S DAY
+TIMER UPDATED, DUE NEXT DAY, 20XML files copied successfully!
+
+CURRENT DAY IS 19; CHANGING TIMER TO TOMMOROW'S DAY
+TIMER UPDATED, DUE NEXT DAY, 20Manual backup request received.
 Collect reports > Reports collected and moved to Reporting directory
 Backup dashboard > Dashboard backup starting
-XML file copied successfully!
-Backup dashboard > Dashboard backup complete
-Unlock directories >  Directories successfully unlocked
-Manual backup request received.
 
-***** PERFORMING MANUAL BACKUP *****
+CURRENT DAY IS 19; CHANGING TIMER TO TOMMOROW'S DAY
+TIMER UPDATED, DUE NEXT DAY, 20XML files copied successfully!
 
-Lock directories > Directories successfully locked
+CURRENT DAY IS 19; CHANGING TIMER TO TOMMOROW'S DAY
+TIMER UPDATED, DUE NEXT DAY, 20Manual backup request received.
 XML files copied successfully!
-Collect reports > Reports collected and moved to Reporting directory
-Backup dashboard > Dashboard backup starting
-XML file copied successfully!
-Backup dashboard > Dashboard backup complete
-Unlock directories >  Directories successfully unlocked
-Manual backup request received.
-
-***** PERFORMING MANUAL BACKUP *****
-
-Lock directories > Directories successfully locked
-XML files copied successfully!
-Collect reports > Reports collected and moved to Reporting directory
-Backup dashboard > Dashboard backup starting
-XML file copied successfully!
-Backup dashboard > Dashboard backup complete
-Unlock directories >  Directories successfully unlocked

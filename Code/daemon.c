@@ -42,7 +42,6 @@ void backup(int sig) {
     backup_dashboard();
     sleep(30);
     unlock_directories();
-    generate_reports();
 }
 
 int main() {
@@ -57,9 +56,9 @@ int main() {
     struct tm backup_time;
     time(&now);  /* get current time; same as: now = time(NULL)  */
     backup_time = *localtime(&now);
-    backup_time.tm_hour = 17; 
-    backup_time.tm_min = 56; 
-    backup_time.tm_sec = 15;
+    backup_time.tm_hour = 1; 
+    backup_time.tm_min = 0; 
+    backup_time.tm_sec = 0;
 
     // Implementation for Singleton Pattern if desired (Only one instance running)
 
@@ -111,8 +110,8 @@ int main() {
             struct tm check_uploads_time;
             time(&now);  /* get current time; same as: now = time(NULL)  */
             check_uploads_time = *localtime(&now);
-            check_uploads_time.tm_hour = 20; 
-            check_uploads_time.tm_min = 44;
+            check_uploads_time.tm_hour = 23; 
+            check_uploads_time.tm_min = 30;
             check_uploads_time.tm_sec = 0;
 
             close(STDIN_FILENO);
@@ -246,7 +245,6 @@ int main() {
                 backup_dashboard();
                 sleep(30);
                 unlock_directories();
-                generate_reports();
                 
                 //after actions are finished, start counting to next day
                 update_timer(&backup_time);

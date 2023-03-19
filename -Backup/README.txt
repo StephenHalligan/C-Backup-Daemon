@@ -1,0 +1,1 @@
+Backups are uploaded daily, at 1am to this directory.
